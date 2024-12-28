@@ -1,0 +1,834 @@
+/* Genel stiller */
+body {
+  margin: 0;
+  overflow: hidden;
+  background-color: #f5f7fa;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.App {
+  text-align: center;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Ana renk değişkenleri */
+:root {
+  --primary-color: #19197e;
+  --primary-dark: #13135a;
+  --primary-light: #2d2d9e;
+  --primary-hover: #1f1f8f;
+}
+
+/* Header ve Logo Stilleri */
+.App-header {
+  background-color: var(--primary-color);
+  padding: 0 24px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.logo {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1;
+  background: var(--primary-color);
+  padding: 6px 14px;
+  border-radius: 8px;
+  gap: 4px;
+  min-width: 80px;
+}
+
+.logo-top, .logo-bottom {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: none;
+  width: 100%;
+  text-align: left;
+}
+
+.logo-top {
+  color: #fff;
+}
+
+.logo-bottom {
+  color: #03ff00;
+}
+
+/* Container Stilleri */
+.main-container {
+  display: flex;
+  gap: 24px;
+  padding: 24px;
+  height: calc(100vh - 112px);
+}
+
+/* Sol Panel Stilleri */
+.categories-side {
+  flex: 0 0 320px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  padding: 16px;
+}
+
+.categories-title {
+  color: var(--primary-color);
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 16px;
+  text-align: left;
+}
+
+.add-category {
+  position: relative;
+  padding: 12px 0;
+  border-bottom: 1px solid #eef2f6;
+  margin-bottom: 16px;
+  text-align: left;
+}
+
+.add-category input {
+  width: calc(100% - 40px);
+  padding: 8px 36px 8px 0;
+  padding-left: 0;
+  border: none;
+  border-bottom: 2px solid #e8eaf6;
+  border-radius: 0;
+  font-size: 13px;
+  transition: all 0.2s;
+  margin-bottom: 0;
+  box-sizing: border-box;
+  background: transparent;
+}
+
+.add-category input:focus {
+  outline: none;
+  border-bottom-color: var(--primary-color);
+}
+
+.add-category input::placeholder {
+  color: #9fa8da;
+}
+
+.add-button {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--primary-color);
+  color: white;
+  width: 24px;
+  height: 24px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  padding: 0;
+}
+
+.add-button:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-50%) scale(1.05);
+}
+
+/* Kategori Kartları */
+.categories-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-right: 8px;
+}
+
+.category-card {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  gap: 0;
+  position: relative;
+  padding-right: 40px;
+  min-width: unset;
+  flex: unset;
+  height: auto;
+  background: white;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border: 1px solid transparent;
+  overflow: hidden;
+}
+
+.category-card::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.5s ease;
+}
+
+.category-card:hover {
+  border-color: #e8eaf6;
+  background: linear-gradient(to right, #fff, #f8f9ff);
+}
+
+.category-card:hover::after {
+  transform: translateX(100%);
+}
+
+.category-card:hover .category-icon {
+  transform: scale(1.1);
+  background: #e3f2fd;
+  color: var(--primary-color);
+}
+
+.category-header {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  flex: 1;
+  gap: 12px;
+}
+
+.category-icon {
+  flex-shrink: 0;
+  font-size: 24px;
+  background: #f0f3ff;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+}
+
+.category-card:hover .category-icon {
+  transform: scale(1.1);
+  background: #e8eaf6;
+}
+
+.category-card h3 {
+  margin: 0;
+  flex: 1;
+  text-align: left;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.delete-category-button {
+  position: absolute;
+  right: 8px;
+  opacity: 0;
+  width: 28px;
+  height: 28px;
+  background: none;
+  border: none;
+  color: #9fa8da;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 4px;
+  transition: all 0.2s;
+  border-radius: 4px;
+  margin-left: auto;
+}
+
+.category-card:hover .delete-category-button {
+  opacity: 1;
+}
+
+.delete-category-button:hover {
+  background-color: #ffebee;
+  color: #f44336;
+}
+
+.category-card.selected {
+  background: linear-gradient(to right, #e8eaf6, #fff);
+  border-left: 4px solid var(--primary-color);
+}
+
+.category-card.selected:hover {
+  background: linear-gradient(to right, #e8eaf6, #f8f9ff);
+}
+
+/* Sağ Panel Stilleri */
+.goals-side {
+  flex: 1;
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  max-width: 1200px;
+  margin: 0 auto;
+  overflow: visible;
+}
+
+.goals-section {
+  padding: 24px;
+  max-height: calc(100vh - 160px);
+  overflow-y: auto;
+}
+
+.goals-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  position: relative;
+  padding-right: 40px;
+}
+
+.goals-header h2 {
+  color: var(--primary-color);
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* Form Stilleri */
+.goal-form {
+  display: flex;
+  justify-content: center;
+  background: transparent;
+  padding: 0;
+  margin-bottom: 24px;
+}
+
+.form-container {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #f8f9ff;
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.form-container input,
+.form-container textarea {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.goal-form input,
+.goal-form textarea {
+  width: 100%;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  border: 2px solid #e8eaf6;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.goal-form textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.goal-form input:focus,
+.goal-form textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(25, 25, 126, 0.1);
+}
+
+.goal-form button {
+  padding: 12px 24px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.goal-form button:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-1px);
+}
+
+.cancel-button {
+  background-color: #e0e0e0 !important;
+  margin-left: 12px;
+}
+
+.cancel-button:hover {
+  background-color: #bdbdbd !important;
+}
+
+/* Hedef Kartları */
+.goals-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.goal-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 200px;
+  max-height: 450px;
+  background-color: white;
+  border-radius: 12px;
+  border: 1px solid #eef2f6;
+  overflow: hidden;
+  transition: all 0.2s;
+}
+
+.goal-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.goal-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 12px 12px 0 0;
+}
+
+.goal-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 16px;
+}
+
+.goal-content h4 {
+  margin: 0 0 8px;
+}
+
+.goal-content p {
+  flex: 1;
+  overflow-y: auto;
+  margin: 0 0 12px;
+  padding-right: 8px;
+}
+
+.goal-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+  padding: 12px;
+  background-color: #f8f9ff;
+  border-top: 1px solid #eef2f6;
+  margin-top: auto;
+}
+
+.action-button {
+  flex: 1;
+  min-width: 80px;
+  max-width: 120px;
+  height: 32px;
+  padding: 0 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.complete-button {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.complete-button:hover {
+  background-color: var(--primary-hover);
+}
+
+.edit-button {
+  background-color: #e8eaf6;
+  color: var(--primary-color);
+}
+
+.edit-button:hover {
+  background-color: #c5cae9;
+}
+
+.delete-button {
+  background-color: #ffebee;
+  color: #f44336;
+}
+
+.delete-button:hover {
+  background-color: #ffcdd2;
+}
+
+.goal-card.completed {
+  opacity: 0.7;
+}
+
+.goal-card.completed h4 {
+  text-decoration: line-through;
+}
+
+/* Empty State */
+.empty-state {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+.empty-state-content {
+  text-align: center;
+  max-width: 400px;
+}
+
+.empty-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  display: block;
+}
+
+.empty-state h2 {
+  color: var(--primary-color);
+  margin: 0 0 12px;
+  font-size: 24px;
+}
+
+.empty-state p {
+  color: #5c6bc0;
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* Scrollbar Stilleri */
+.categories-side::-webkit-scrollbar,
+.goals-side::-webkit-scrollbar {
+  width: 6px;
+}
+
+.categories-side::-webkit-scrollbar-track,
+.goals-side::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.categories-side::-webkit-scrollbar-thumb,
+.goals-side::-webkit-scrollbar-thumb {
+  background: #c5cae9;
+  border-radius: 3px;
+}
+
+.categories-side::-webkit-scrollbar-thumb:hover,
+.goals-side::-webkit-scrollbar-thumb:hover {
+  background: #7986cb;
+}
+
+/* Scrollbar için güncelleme */
+.goal-content p::-webkit-scrollbar {
+  width: 4px;
+}
+
+.goal-content p::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.goal-content p::-webkit-scrollbar-thumb {
+  background: #e0e0e0;
+  border-radius: 2px;
+}
+
+.goal-content p::-webkit-scrollbar-thumb:hover {
+  background: #bdbdbd;
+}
+
+/* Görsel yükleme stilleri */
+.image-upload {
+  margin-bottom: 16px;
+}
+
+.file-input {
+  display: none;
+}
+
+.file-label {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #e8eaf6;
+  color: var(--primary-color);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 14px;
+}
+
+.file-label:hover {
+  background-color: #c5cae9;
+}
+
+.remove-image {
+  margin-left: 12px;
+  padding: 10px 20px;
+  background-color: #ffebee;
+  color: #f44336;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.remove-image:hover {
+  background-color: #ffcdd2;
+}
+
+/* Form butonları için container */
+.form-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-start;
+  margin-top: 20px;
+}
+
+.form-buttons button {
+  min-width: 120px;
+}
+
+/* Auth Container ve Form Stilleri */
+.auth-container {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f5f7fa;
+  padding: 20px;
+}
+
+.auth-form {
+  background: white;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.auth-form .logo {  
+  margin-bottom: 24px;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1;
+  background: var(--primary-color);
+  padding: 10px 14px;
+  border-radius: 8px;
+}
+
+.auth-form h2 {
+  color: var(--primary-color);
+  margin-bottom: 24px;
+  font-size: 24px;
+}
+
+.auth-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.auth-form input {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #e8eaf6;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.2s;
+  box-sizing: border-box;
+}
+
+.auth-form input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(25, 25, 126, 0.1);
+}
+
+.auth-form button {
+  width: 100%;
+  padding: 12px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 8px;
+}
+
+.auth-form button:hover {
+  background-color: var(--primary-hover);
+}
+
+.auth-form p {
+  margin-top: 16px;
+  color: #666;
+  font-size: 14px;
+}
+
+.auth-form a {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.auth-form a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive tasarım için */
+@media (max-width: 480px) {
+  .auth-form {
+    padding: 24px;
+  }
+
+  .auth-form h2 {
+    font-size: 20px;
+  }
+
+  .auth-form input,
+  .auth-form button {
+    padding: 10px;
+  }
+}
+
+.user-menu {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-left: auto;
+}
+
+.user-menu span {
+  color: white;
+  font-weight: 500;
+}
+
+.user-menu button {
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.user-menu button:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Responsive düzenlemeler */
+@media (max-width: 768px) {
+  .goals-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+
+  .goal-actions {
+    justify-content: center;
+  }
+
+  .action-button {
+    flex: 0 1 auto;
+    min-width: 70px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .goal-card {
+    max-height: none;
+  }
+
+  .goal-image {
+    height: 150px;
+  }
+
+  .goal-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .action-button {
+    max-width: none;
+    width: 100%;
+    height: 36px;
+  }
+}
+
+/* Auth form buton stilleri */
+.auth-form button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.auth-form input:disabled {
+  background-color: #f5f5f5;
+  cursor: not-allowed;
+}
+
+/* Görsel container ve preview stilleri */
+.goal-image-container {
+  position: relative;
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
+  border-radius: 12px 12px 0 0;
+  background-color: #f5f5f5;
+}
+
+.goal-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.goal-card:hover .goal-image {
+  transform: scale(1.05);
+}
+
+.image-preview {
+  margin-top: 12px;
+  border-radius: 8px;
+  overflow: hidden;
+  max-width: 200px;
+}
+
+.image-preview img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
