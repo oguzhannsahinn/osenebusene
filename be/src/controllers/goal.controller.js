@@ -140,35 +140,35 @@ const updateGoal = async (req, res) => {
 };
 
 // Hedef tamamlama durumunu değiştir
-const toggleGoalComplete = async (req, res) => {
+const toggleComplete = async (req, res) => {
   try {
-    const { id } = req.params;
-    
-    const goalRef = db.collection('goals').doc(id);
-    const doc = await goalRef.get();
+    const goalRef = db.collection('goals').doc(req.params.id);
+    const goal = await goalRef.get();
 
-    if (!doc.exists) {
+    if (!goal.exists) {
       return res.status(404).json({ message: 'Hedef bulunamadı' });
     }
 
-    if (doc.data().userId !== req.user.id) {
-      return res.status(403).json({ message: 'Bu işlem için yetkiniz yok' });
-    }
-
-    const completed = !doc.data().completed;
+    const currentData = goal.data();
+    const newCompleted = !currentData.completed;
 
     await goalRef.update({
-      completed,
-      completedAt: completed ? new Date() : null
+      completed: newCompleted,
+      updatedAt: new Date()
     });
 
-    res.json({
-      id,
-      completed,
-      ...doc.data()
-    });
+    // Güncellenmiş veriyi döndür
+    const updatedGoal = {
+      id: goal.id,
+      ...currentData,
+      completed: newCompleted,
+      updatedAt: new Date()
+    };
+
+    res.json(updatedGoal);
+
   } catch (error) {
-    console.error('Toggle goal complete error:', error);
+    console.error('Toggle complete error:', error);
     res.status(500).json({ message: 'Hedef durumu güncellenirken bir hata oluştu' });
   }
 };
@@ -203,6 +203,6 @@ module.exports = {
   getGoalsByCategory,
   createGoal,
   updateGoal,
-  toggleGoalComplete,
+  toggleComplete,
   deleteGoal
 }; 

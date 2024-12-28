@@ -276,13 +276,16 @@ body {
   box-shadow: 0 4px 6px rgba(0,0,0,0.05);
   max-width: 1200px;
   margin: 0 auto;
-  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .goals-section {
+  flex: 1;
   padding: 24px;
-  max-height: calc(100vh - 160px);
   overflow-y: auto;
+  height: 100%;
 }
 
 .goals-header {
@@ -764,6 +767,70 @@ body {
     min-width: 70px;
     font-size: 12px;
   }
+
+  .goals-side {
+    height: calc(60vh - 16px);
+    min-height: 400px;
+  }
+
+  .goals-section {
+    padding: 16px;
+    height: 100%;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Kategoriler paneli */
+  .categories-side {
+    height: calc(40vh - 16px);
+    min-height: 200px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .categories-title {
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+
+  .category-card {
+    padding: 8px;
+  }
+
+  .category-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 20px;
+  }
+
+  .goals-header h2 {
+    font-size: 18px;
+  }
+
+  .goals-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  /* Form düzenlemeleri */
+  .form-container {
+    padding: 16px;
+  }
+
+  .goal-form input,
+  .goal-form textarea {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .form-buttons {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .form-buttons button {
+    width: 100%;
+  }
 }
 
 @media (max-width: 480px) {
@@ -831,4 +898,221 @@ body {
   width: 100%;
   height: auto;
   display: block;
+}
+
+/* Mobil responsive düzenlemeler */
+@media (max-width: 768px) {
+  /* Header düzenlemeleri */
+  .App-header {
+    padding: 0 16px;
+    height: 64px;
+  }
+
+  .logo {
+    padding: 4px 10px;
+    min-width: 60px;
+  }
+
+  .logo-top, .logo-bottom {
+    font-size: 14px;
+  }
+
+  .user-menu {
+    gap: 8px;
+  }
+
+  .user-menu span {
+    font-size: 14px;
+  }
+
+  .user-menu button {
+    padding: 6px 12px;
+    font-size: 13px;
+  }
+
+  /* Ana container düzenlemeleri */
+  .main-container {
+    flex-direction: column;
+    padding: 16px;
+    height: calc(100vh - 64px);
+    gap: 16px;
+  }
+
+  /* Kategoriler paneli */
+  .categories-side {
+    flex: 0 0 auto;
+    max-height: 40vh;
+    padding: 12px;
+  }
+
+  .categories-title {
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+
+  .category-card {
+    padding: 8px;
+  }
+
+  .category-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 20px;
+  }
+
+  /* Hedefler paneli */
+  .goals-side {
+    max-height: calc(60vh - 64px);
+  }
+
+  .goals-section {
+    padding: 16px;
+  }
+
+  .goals-header h2 {
+    font-size: 18px;
+  }
+
+  .goals-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  /* Form düzenlemeleri */
+  .form-container {
+    padding: 16px;
+  }
+
+  .goal-form input,
+  .goal-form textarea {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .form-buttons {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .form-buttons button {
+    width: 100%;
+  }
+}
+
+/* Daha küçük ekranlar için ek düzenlemeler */
+@media (max-width: 480px) {
+  /* Header düzenlemeleri */
+  .App-header {
+    padding: 0 12px;
+  }
+
+  .user-menu span {
+    display: none; /* Kullanıcı adını gizle */
+  }
+
+  /* Hedef kartı düzenlemeleri */
+  .goal-card {
+    min-height: 150px;
+  }
+
+  .goal-content {
+    padding: 12px;
+  }
+
+  .goal-content h4 {
+    font-size: 14px;
+  }
+
+  .goal-content p {
+    font-size: 13px;
+  }
+
+  .goal-actions {
+    padding: 8px;
+  }
+
+  /* Form düzenlemeleri */
+  .image-upload {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .file-label,
+  .remove-image {
+    text-align: center;
+    margin: 4px 0;
+  }
+
+  .image-preview {
+    max-width: 100%;
+  }
+}
+
+/* Yatay mobil cihazlar için düzenlemeler */
+@media (max-height: 600px) and (orientation: landscape) {
+  .main-container {
+    flex-direction: row;
+  }
+
+  .categories-side {
+    max-height: calc(100vh - 64px);
+    width: 280px;
+  }
+
+  .goals-side {
+    max-height: calc(100vh - 64px);
+  }
+}
+
+/* Tablet boyutu için düzenlemeler */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .goals-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  }
+
+  .goal-card {
+    min-height: 180px;
+  }
+}
+
+/* Yatay mod için düzenlemeler */
+@media (max-height: 600px) and (orientation: landscape) {
+  .main-container {
+    height: calc(100vh - 64px);
+    overflow: hidden;
+  }
+
+  .categories-side {
+    width: 280px;
+    height: 100%;
+    overflow-y: auto;
+  }
+
+  .goals-side {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .goals-section {
+    height: 100%;
+    overflow-y: auto;
+  }
+}
+
+/* Scrollbar stilleri */
+.goals-section::-webkit-scrollbar {
+  width: 6px;
+}
+
+.goals-section::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.goals-section::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 3px;
+}
+
+.goals-section::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.2);
 }

@@ -148,10 +148,20 @@ function Goals({ selectedCategory, onSelectCategory }) {
   const handleToggleComplete = async (goalId) => {
     try {
       const response = await goalService.toggleComplete(goalId);
-      setGoals(goals.map(goal =>
-        goal.id === goalId ? response.data : goal
-      ));
+      console.log('Toggle response:', response); // Debug için
+
+      // State'i güncellerken response.data'yı kullan
+      setGoals(prevGoals => 
+        prevGoals.map(goal => 
+          goal.id === goalId ? { ...goal, completed: !goal.completed } : goal
+        )
+      );
+      
+      // Başarı mesajı göster
+      toast.success(response.data.completed ? 'Hedef tamamlandı!' : 'Hedef tamamlanmadı olarak işaretlendi');
+      
     } catch (error) {
+      console.error('Toggle error:', error);
       toast.error('İşlem sırasında bir hata oluştu');
     }
   };
