@@ -3,7 +3,7 @@ body {
   margin: 0;
   overflow: hidden;
   background-color: #f5f7fa;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: var(--font-body);
 }
 
 .App {
@@ -19,6 +19,10 @@ body {
   --primary-dark: #13135a;
   --primary-light: #2d2d9e;
   --primary-hover: #1f1f8f;
+  
+  /* Font ailesi değişkenleri */
+  --font-heading: 'Montserrat', sans-serif;
+  --font-body: 'Poppins', sans-serif;
 }
 
 /* Header ve Logo Stilleri */
@@ -45,7 +49,7 @@ body {
 }
 
 .logo-top, .logo-bottom {
-  font-family: 'Montserrat', sans-serif;
+  font-family: var(--font-heading);
   font-size: 16px;
   font-weight: 800;
   letter-spacing: 1px;
@@ -87,6 +91,7 @@ body {
   font-weight: 600;
   margin: 0 0 16px;
   text-align: left;
+  font-family: var(--font-heading);
 }
 
 .add-category {
@@ -109,6 +114,7 @@ body {
   margin-bottom: 0;
   box-sizing: border-box;
   background: transparent;
+  font-family: var(--font-body);
 }
 
 .add-category input:focus {
@@ -302,6 +308,7 @@ body {
   font-size: 20px;
   font-weight: 600;
   margin: 0;
+  font-family: var(--font-heading);
 }
 
 /* Form Stilleri */
@@ -383,25 +390,24 @@ body {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 20px;
+  padding: 4px;
 }
 
 .goal-card {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  min-height: 200px;
-  max-height: 450px;
-  background-color: white;
+  background: white;
   border-radius: 12px;
   border: 1px solid #eef2f6;
   overflow: hidden;
-  transition: all 0.2s;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
 }
 
 .goal-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
 .goal-image {
@@ -412,49 +418,52 @@ body {
 }
 
 .goal-content {
+  padding: 20px;
+  flex: 1;
   display: flex;
   flex-direction: column;
-  flex: 1;
-  padding: 16px;
 }
 
 .goal-content h4 {
-  margin: 0 0 8px;
+  margin: 0 0 12px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--primary-color);
+  font-family: var(--font-heading);
 }
 
 .goal-content p {
+  margin: 0;
+  font-size: 14px;
+  color: #666;
+  line-height: 1.5;
   flex: 1;
-  overflow-y: auto;
-  margin: 0 0 12px;
-  padding-right: 8px;
+  font-family: var(--font-body);
 }
 
 .goal-actions {
+  margin-top: 16px;
   display: flex;
-  flex-wrap: wrap;
   gap: 8px;
   justify-content: flex-end;
-  padding: 12px;
-  background-color: #f8f9ff;
+  padding-top: 16px;
   border-top: 1px solid #eef2f6;
-  margin-top: auto;
 }
 
 .action-button {
-  flex: 1;
-  min-width: 80px;
-  max-width: 120px;
-  height: 32px;
-  padding: 0 12px;
-  border: none;
+  padding: 8px 16px;
   border-radius: 6px;
-  cursor: pointer;
   font-size: 13px;
   font-weight: 500;
-  white-space: nowrap;
+  transition: all 0.2s;
+  border: none;
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+  min-width: auto;
+  flex: 0 1 auto;
+  font-family: var(--font-body);
 }
 
 .complete-button {
@@ -485,11 +494,20 @@ body {
 }
 
 .goal-card.completed {
-  opacity: 0.7;
+  background-color: #f8f9fa;
 }
 
 .goal-card.completed h4 {
   text-decoration: line-through;
+  color: #888;
+}
+
+.goal-card.completed p {
+  color: #888;
+}
+
+.goal-card.completed .complete-button {
+  background-color: #4caf50;
 }
 
 /* Empty State */
@@ -652,6 +670,8 @@ body {
   color: var(--primary-color);
   margin-bottom: 24px;
   font-size: 24px;
+  font-family: var(--font-heading);
+  font-weight: 700;
 }
 
 .auth-form form {
@@ -771,6 +791,7 @@ body {
   .goals-side {
     height: calc(60vh - 16px);
     min-height: 400px;
+    padding-bottom: 120px;
   }
 
   .goals-section {
@@ -801,6 +822,10 @@ body {
     width: 32px;
     height: 32px;
     font-size: 20px;
+  }
+
+  .goals-header {
+    padding-right: 0;
   }
 
   .goals-header h2 {
@@ -1115,4 +1140,164 @@ body {
 
 .goals-section::-webkit-scrollbar-thumb:hover {
   background: rgba(0, 0, 0, 0.2);
+}
+
+/* Hedefler bölümü ayırıcı */
+.goals-divider {
+  display: flex;
+  align-items: center;
+  margin: 24px 0;
+  gap: 16px;
+}
+
+.goals-divider hr {
+  flex: 1;
+  border: none;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #e0e0e0, transparent);
+}
+
+.goals-divider span {
+  color: #35a23a;
+  font-size: 15px;
+  font-weight: 600;
+  white-space: nowrap;
+  padding: 0 10px;
+  font-family: var(--font-heading);
+}
+
+/* Hedef kartları grid düzeni */
+.goals-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  padding: 4px;
+}
+
+/* Hedef kartı tasarımı */
+.goal-card {
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #eef2f6;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+}
+
+.goal-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.goal-content {
+  padding: 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.goal-content h4 {
+  margin: 0 0 12px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--primary-color);
+  font-family: var(--font-heading);
+}
+
+.goal-content p {
+  margin: 0;
+  font-size: 14px;
+  color: #666;
+  line-height: 1.5;
+  flex: 1;
+  font-family: var(--font-body);
+}
+
+/* Hedef kartı butonları */
+.goal-actions {
+  margin-top: 16px;
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  padding-top: 16px;
+  border-top: 1px solid #eef2f6;
+}
+
+.action-button {
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.2s;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: auto;
+  flex: 0 1 auto;
+  font-family: var(--font-body);
+}
+
+.complete-button {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.complete-button:hover {
+  background-color: var(--primary-hover);
+}
+
+.edit-button {
+  background-color: #e8eaf6;
+  color: var(--primary-color);
+}
+
+.edit-button:hover {
+  background-color: #c5cae9;
+}
+
+.delete-button {
+  background-color: #ffebee;
+  color: #f44336;
+}
+
+.delete-button:hover {
+  background-color: #ffcdd2;
+}
+
+/* Tamamlanmış hedef kartı */
+.goal-card.completed {
+  background-color: #f8f9fa;
+}
+
+.goal-card.completed h4 {
+  text-decoration: line-through;
+  color: #888;
+}
+
+.goal-card.completed p {
+  color: #888;
+}
+
+.goal-card.completed .complete-button {
+  background-color: #4caf50;
+}
+
+/* Responsive düzenlemeler */
+@media (max-width: 768px) {
+  .goals-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .goal-actions {
+    flex-wrap: wrap;
+  }
+
+  .action-button {
+    flex: 1;
+  }
 }

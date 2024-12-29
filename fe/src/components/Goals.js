@@ -222,6 +222,7 @@ function Goals({ selectedCategory, onSelectCategory }) {
               value={newGoal.description}
               onChange={(e) => setNewGoal({...newGoal, description: e.target.value})}
             />
+             {/*
             <div className="image-upload">
               <input
                 type="file"
@@ -231,7 +232,8 @@ function Goals({ selectedCategory, onSelectCategory }) {
                 className="file-input"
               />
               <label htmlFor="image-upload" className="file-label">
-                {newGoal.imagePreview ? '📸 Görsel Seçildi' : '📸 Görsel Ekle'}
+                {newGoal.imagePreview ? '📸 Görsel Seçildi' : '📸 Görsel Ekle'} 
+                📸 Görsel Ekle
               </label>
               {newGoal.imagePreview && (
                 <>
@@ -248,6 +250,8 @@ function Goals({ selectedCategory, onSelectCategory }) {
                 </>
               )}
             </div>
+              */}
+
             <div className="form-buttons">
               <button type="submit">
                 {editingGoal ? 'Hedefi Güncelle' : 'Hedef Ekle'}
@@ -267,6 +271,14 @@ function Goals({ selectedCategory, onSelectCategory }) {
             </div>
           </div>
         </form>
+
+        {goals.length > 0 && (
+          <div className="goals-divider">
+            <hr />
+            <span>Mevcut Hedeflerim</span>
+            <hr />
+          </div>
+        )}
 
         <div className="goals-grid">
           {goals.map(goal => (
